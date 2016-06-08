@@ -13,13 +13,14 @@ import org.codehaus.jettison.json.JSONObject;
 public class URLUpdate {
 	@GET
     // Path: http://localhost/<appln-folder-name>/urlupdate/doupdate
-    @Path("/doUpdate")
+    @Path("/doupdate")
     // Produces JSON as response
     @Produces(MediaType.APPLICATION_JSON) 
     // Query parameters are parameters: http://localhost/<appln-folder-name>/urlupdate/doupdate?user_id=abc&urldata=xyz
     public String doUpdate(@QueryParam("user_id") String uid, @QueryParam("urldata") String urldata){
         String response = "";
         if(checkCredentials(uid)){
+        	System.out.println(urldata);
         	if(updateUrl(urldata) == 0){
         		response = Utility.constructJSON("update",true);
         	} else {

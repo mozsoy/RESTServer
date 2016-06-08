@@ -133,25 +133,25 @@ public class DBConnection {
     	Iterator<?> keys = jsonObj.keys();
     	while( keys.hasNext() ) {
     	    String url = (String)keys.next();
-    	    if ( jsonObj.get(url) instanceof JSONObject ) {
-    	    	long freq = (long) jsonObj.get(url);
-    	    	try {
-    	            Statement stmt = dbConn.createStatement();
-    	            String query = 
-    	            		"INSERT into urltable(url,freq)"
-    	            		+ " values('" + url + "','" + freq + "',NOW())"
-    	            		+ " ON DUPLICATE KEY UPDATE freq=freq +" + freq;
-    	            //System.out.println(query);
-    	            int records = stmt.executeUpdate(query);
-    	            //System.out.println(records);
-    	            //When record is successfully inserted
-    	            if (records > 0) {
-    	                insertStatus = true;
-    	            }
-    	        }catch (SQLException sqle) {
-    	            //sqle.printStackTrace();
-    	        	throw sqle;
-    	        }
+    	    System.out.println(url);
+    	    long freq = Long.valueOf((String) jsonObj.get(url));
+    	    System.out.println(freq);
+    	    try {
+    	    	Statement stmt = dbConn.createStatement();
+    	    	String query = 
+    	    			"INSERT into urltable(url,freq,date)"
+    	    					+ " values('" + url + "','" + freq + "',NOW())"
+    	    					+ " ON DUPLICATE KEY UPDATE freq=freq +" + freq;
+    	    	//System.out.println(query);
+    	    	int records = stmt.executeUpdate(query);
+    	    	//System.out.println(records);
+    	    	//When record is successfully inserted
+    	    	if (records > 0) {
+    	    		insertStatus = true;
+    	    	}
+    	    }catch (SQLException sqle) {
+    	    	//sqle.printStackTrace();
+    	    	throw sqle;
     	    }
     	}
     	if (dbConn != null) {
