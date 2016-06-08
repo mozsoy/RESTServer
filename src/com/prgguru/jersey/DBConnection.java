@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+// import org.json.JSONObject;
+import java.util.Iterator;
+
+import org.codehaus.jettison.json.JSONObject;
  
 public class DBConnection {
     /**
@@ -26,14 +30,13 @@ public class DBConnection {
         }
     }
     /**
-     * Method to check whether uname and pwd combination are correct
+     * Method to check whether uid is correct
      * 
-     * @param uname
-     * @param pwd
+     * @param uid
      * @return
      * @throws Exception
      */
-    public static boolean checkLogin(String uname, String pwd) throws Exception {
+    public static boolean checkLogin(String uid) throws Exception {
         boolean isUserAvailable = false;
         Connection dbConn = null;
         try {
@@ -44,8 +47,7 @@ public class DBConnection {
                 e.printStackTrace();
             }
             Statement stmt = dbConn.createStatement();
-            String query = "SELECT * FROM user WHERE username = '" + uname
-                    + "' AND password=" + "'" + pwd + "'";
+            String query = "SELECT * FROM user WHERE user_id = '" + uid + "'";
             //System.out.println(query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -68,16 +70,13 @@ public class DBConnection {
         return isUserAvailable;
     }
     /**
-     * Method to insert uname and pwd in DB
+     * Method to insert uid in DB
      * 
-     * @param name
-     * @param uname
-     * @param pwd
-     * @return
+     * @param uid
      * @throws SQLException
      * @throws Exception
      */
-    public static boolean insertUser(String name, String uname, String pwd) throws SQLException, Exception {
+    public static boolean insertUser(String uid) throws SQLException, Exception {
         boolean insertStatus = false;
         Connection dbConn = null;
         try {
@@ -88,8 +87,7 @@ public class DBConnection {
                 e.printStackTrace();
             }
             Statement stmt = dbConn.createStatement();
-            String query = "INSERT into user(name, username, password) values('"+name+ "',"+"'"
-                    + uname + "','" + pwd + "')";
+            String query = "INSERT into user(user_id) values('" + uid + "')";
             //System.out.println(query);
             int records = stmt.executeUpdate(query);
             //System.out.println(records);
@@ -113,5 +111,52 @@ public class DBConnection {
             }
         }
         return insertStatus;
+    }
+    
+    /**
+     * Method to insert URL and frequency in DB
+     * 
+     * @param 
+     * @param jsonObj
+     * @throws SQLException
+     * @throws Exception
+     */
+    public static boolean insertUrl(JSONObject jsonObj) throws SQLException, Exception {
+    	boolean insertStatus = false;
+        Connection dbConn = null;
+    	try {
+            dbConn = DBConnection.createConnection();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    	Iterator<?> keys = jsonObj.keys();
+    	while( keys.hasNext() ) {
+    	    String url = (String)keys.next();
+    	    if ( jsonObj.get(url) instanceof JSONObject ) {
+    	    	long freq = (long) jsonObj.get(url);
+    	    	try {
+    	            Statement stmt = dbConn.createStatement();
+    	            String query = 
+    	            		"INSERT into urltable(url,freq)"
+    	            		+ " values('" + url + "','" + freq + "',NOW())"
+    	            		+ " ON DUPLICATE KEY UPDATE freq=freq +" + freq;
+    	            //System.out.println(query);
+    	            int records = stmt.executeUpdate(query);
+    	            //System.out.println(records);
+    	            //When record is successfully inserted
+    	            if (records > 0) {
+    	                insertStatus = true;
+    	            }
+    	        }catch (SQLException sqle) {
+    	            //sqle.printStackTrace();
+    	        	throw sqle;
+    	        }
+    	    }
+    	}
+    	if (dbConn != null) {
+    		dbConn.close();
+    	}
+    	return insertStatus;
     }
 }

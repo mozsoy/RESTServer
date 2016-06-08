@@ -17,39 +17,38 @@ public class Register {
     // Produces JSON as response
     @Produces(MediaType.APPLICATION_JSON) 
     // Query parameters are parameters: http://localhost/<appln-folder-name>/register/doregister?name=pqrs&username=abc&password=xyz
-    public String doRegister(@QueryParam("name") String name, @QueryParam("username") String uname, @QueryParam("password") String pwd){
+    public String doRegister(@QueryParam("name") String name, @QueryParam("key") String key){
         String response = "";
-        //System.out.println("Inside doLogin "+uname+"  "+pwd);
-        int retCode = registerUser(name, uname, pwd);
-        if(retCode == 0){
-            response = Utility.constructJSON("register",true);
-        }else if(retCode == 1){
-            response = Utility.constructJSON("register",false, "You are already registered");
-        }else if(retCode == 2){
-            response = Utility.constructJSON("register",false, "Special Characters are not allowed in Username and Password");
-        }else if(retCode == 3){
-            response = Utility.constructJSON("register",false, "Error occured");
+        boolean isAppName = (name.equals(Constants.app_name));
+        boolean isKey = (key.equals(Constants.app_key));
+        if(isAppName && isKey){
+        	String uid = "sudebaby";
+        	registerUser(uid);
+            response = Utility.constructJSON("register", uid);
+        }else if(!isAppName){
+            response = Utility.constructJSON("register",false, "Wrong app name");
+        }else if(!isKey){
+            response = Utility.constructJSON("register",false, "Wrong app key");
         }
         return response;
- 
     }
  
-    private int registerUser(String name, String uname, String pwd){
+    private int registerUser(String uid){
         System.out.println("Inside checkCredentials");
         int result = 3;
-        if(Utility.isNotNull(uname) && Utility.isNotNull(pwd)){
+        if(Utility.isNotNull(uid)){
             try {
-                if(DBConnection.insertUser(name, uname, pwd)){
-                    System.out.println("RegisterUSer if");
+                if(DBConnection.insertUser(uid)){
+                    System.out.println("RegisterUser if");
                     result = 0;
                 }
             } catch(SQLException sqle){
-                System.out.println("RegisterUSer catch sqle");
+                System.out.println("RegisterUser catch sqle");
                 //When Primary key violation occurs that means user is already registered
                 if(sqle.getErrorCode() == 1062){
                     result = 1;
                 } 
-                //When special characters are used in name,username or password
+                //When special characters are used in uid
                 else if(sqle.getErrorCode() == 1064){
                     System.out.println(sqle.getErrorCode());
                     result = 2;

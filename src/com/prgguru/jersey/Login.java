@@ -14,13 +14,14 @@ public class Login {
     @Path("/dologin")
     // Produces JSON as response
     @Produces(MediaType.APPLICATION_JSON) 
-    // Query parameters are parameters: http://localhost/<appln-folder-name>/login/dologin?username=abc&password=xyz
-    public String doLogin(@QueryParam("username") String uname, @QueryParam("password") String pwd){
+    // Query parameters are parameters: http://localhost/<appln-folder-name>/login/dologin?userid=abc
+    public String doLogin(@QueryParam("user_id") String uid){
+    	System.out.println(uid);
         String response = "";
-        if(checkCredentials(uname, pwd)){
+        if(checkCredentials(uid)){
             response = Utility.constructJSON("login",true);
         }else{
-            response = Utility.constructJSON("login", false, "Incorrect Email or Password");
+            response = Utility.constructJSON("login", false, "Incorrect user id");
         }
     return response;        
     }
@@ -28,16 +29,15 @@ public class Login {
     /**
      * Method to check whether the entered credential is valid
      * 
-     * @param uname
-     * @param pwd
+     * @param uid
      * @return
      */
-    private boolean checkCredentials(String uname, String pwd){
+    private boolean checkCredentials(String uid){
         System.out.println("Inside checkCredentials");
         boolean result = false;
-        if(Utility.isNotNull(uname) && Utility.isNotNull(pwd)){
+        if(uid != null){
             try {
-                result = DBConnection.checkLogin(uname, pwd);
+                result = DBConnection.checkLogin(uid);
                 //System.out.println("Inside checkCredentials try "+result);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
@@ -48,7 +48,6 @@ public class Login {
             //System.out.println("Inside checkCredentials else");
             result = false;
         }
- 
         return result;
     }
  

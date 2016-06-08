@@ -32,6 +32,24 @@ public class Utility {
         }
         return obj.toString();
     }
+    
+    /**
+     * Method to construct JSON
+     * 
+     * @param tag
+     * @param status
+     * @return
+     */
+    public static String constructJSON(String tag, String uid) {
+        JSONObject obj = new JSONObject();
+        try {
+        	obj.put("tag", tag);
+            obj.put("uid", uid);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+        }
+        return obj.toString();
+    }
  
     /**
      * Method to construct JSON with Error Msg
