@@ -134,7 +134,7 @@ public class DBConnection {
     	while( keys.hasNext() ) {
     	    String url = (String)keys.next();
     	    System.out.println(url);
-    	    long freq = Long.valueOf((String) jsonObj.get(url));
+    	    long freq = (long) jsonObj.get(url);
     	    System.out.println(freq);
     	    try {
     	    	Statement stmt = dbConn.createStatement();

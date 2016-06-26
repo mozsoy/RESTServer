@@ -1,5 +1,7 @@
 package com.prgguru.jersey;
  
+import java.util.HashMap;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
  
@@ -70,5 +72,21 @@ public class Utility {
         }
         return obj.toString();
     }
- 
+    
+    /**
+     * Method to parse HashMap.toString() back to HashMap
+     * 
+     * @param mapStr
+     * @return map
+     */
+    public static HashMap<String, Long> toHashMap(String mapStr) {
+    	HashMap<String, Long> map = new HashMap<String, Long>();
+    	// Remove '{','}' at the beginning and at the end 
+    	mapStr = mapStr.substring(1,mapStr.length()-1);
+    	for(String keyValue : mapStr.split(" *, *")) {
+    	   String[] pairs = keyValue.split(" *= *");
+    	   map.put(pairs[0], Long.valueOf(pairs[1]));
+    	}
+    	return map;
+    } 
 }
