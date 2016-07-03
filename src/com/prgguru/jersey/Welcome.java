@@ -13,7 +13,8 @@ public class Welcome {
 	  @GET
 	  @Produces(MediaType.TEXT_PLAIN)
 	  public String sayPlainTextHello() {
-	    return "Hello Jersey";
+		  String welcomeMessage = System.getenv("JDBC_DATABASE_URL");
+	    return welcomeMessage;
 	  }
 
 	  // This method is called if XML is request
