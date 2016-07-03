@@ -28,7 +28,9 @@ public class Welcome {
 	  @GET
 	  @Produces(MediaType.TEXT_HTML)
 	  public String sayHtmlHello() {
+		  String welcomeMessage = System.getenv("JDBC_DATABASE_URL");
+		    
 	    return "<html> " + "<title>" + "Hello Jersey" + "</title>"
-	        + "<body><h1>" + "Hello Jersey" + "</body></h1>" + "</html> ";
+	        + "<body><h1>" + welcomeMessage + "</body></h1>" + "</html> ";
 	  }
 }
