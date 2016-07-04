@@ -17,7 +17,6 @@ public class DBConnection {
      * @return
      * @throws Exception
      */
-    @SuppressWarnings("finally")
     public static Connection createConnection() throws Exception {
     	String dbUrl = System.getenv("JDBC_DATABASE_URL");
         return DriverManager.getConnection(dbUrl);
