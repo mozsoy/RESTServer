@@ -19,6 +19,9 @@ public class DBConnection {
      */
     @SuppressWarnings("finally")
     public static Connection createConnection() throws Exception {
+    	String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        return DriverManager.getConnection(dbUrl);
+    	/* USE THIS CODE IF DATABASE IS NOT ON HEROKU
         Connection con = null;
         try {
             Class.forName(Constants.dbClass);
@@ -28,6 +31,7 @@ public class DBConnection {
         } finally {
             return con;
         }
+        */
     }
     /**
      * Method to check whether uid is correct
@@ -47,7 +51,7 @@ public class DBConnection {
                 e.printStackTrace();
             }
             Statement stmt = dbConn.createStatement();
-            String query = "SELECT * FROM user WHERE user_id = '" + uid + "'";
+            String query = "SELECT * FROM users WHERE uid = '" + uid + "'";
             //System.out.println(query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -87,7 +91,7 @@ public class DBConnection {
                 e.printStackTrace();
             }
             Statement stmt = dbConn.createStatement();
-            String query = "INSERT into user(user_id) values('" + uid + "')";
+            String query = "INSERT into users(uid) values('" + uid + "')";
             //System.out.println(query);
             int records = stmt.executeUpdate(query);
             //System.out.println(records);
@@ -139,7 +143,7 @@ public class DBConnection {
     	    try {
     	    	Statement stmt = dbConn.createStatement();
     	    	String query = 
-    	    			"INSERT into urltable(url,freq,date)"
+    	    			"INSERT into urls(url,freq,date)"
     	    					+ " values('" + url + "','" + freq + "',NOW())"
     	    					+ " ON DUPLICATE KEY UPDATE freq=freq +" + freq;
     	    	//System.out.println(query);
