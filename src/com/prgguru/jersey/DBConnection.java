@@ -144,7 +144,7 @@ public class DBConnection {
     	    	String query = 
     	    			"INSERT into urls(url,freq,date)"
     	    					+ " values('" + url + "','" + freq + "',NOW())"
-    	    					+ " ON DUPLICATE KEY UPDATE freq=freq +" + freq;
+    	    					+ " ON CONFLICT (url) DO UPDATe SET freq=urls.freq +" + freq;
     	    	//System.out.println(query);
     	    	int records = stmt.executeUpdate(query);
     	    	//System.out.println(records);
