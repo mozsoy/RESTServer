@@ -11,7 +11,11 @@ public class WhitelistFilter {
 
 	 // Whitelist providers flags
     private static boolean top1000flag = true;
-    private static boolean alexa500flag = true;
+    /*Keep this flag off. 
+     * Alexa uses a zip file. 
+     * Heroku filesystem is read-only and doesn not let downloading zip file.
+     * */  
+    private static boolean alexa500flag = false;
     
     // Return url as a string without the http and www parts
     public static String getDomainName(String url) throws URISyntaxException {

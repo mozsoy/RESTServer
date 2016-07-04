@@ -24,9 +24,11 @@ public class URLUpdate {
     public String doUpdate(@QueryParam("user_id") String uid, @QueryParam("urldata") String urldata){
         String response = "";
         if(checkCredentials(uid)){
-        	System.out.println(urldata);
-        	if(updateUrl(urldata) == 0){
+        	int updateUrlResponse = updateUrl(urldata);
+        	if(updateUrlResponse == 0){
         		response = Utility.constructJSON("update",true);
+        	} else if(updateUrlResponse == 0){
+        		response = Utility.constructJSON("update", true, "filtered url map is empty");
         	} else {
         		response = Utility.constructJSON("update", false, "bad url map");
         	}
@@ -88,6 +90,10 @@ public class URLUpdate {
     		HashMap<String,Long> urlMap = Utility.toHashMap(urlStr);
     		// Filter urlMap by the compiled whitelist
     		urlMap = WhitelistFilter.filterUrlMap(urlMap);
+    		// If filtered url map is empty
+    		if(urlMap.isEmpty()) {
+    			return -2;
+    		}
 			JSONObject jUrlData = new JSONObject(urlMap);
 			if(DBConnection.insertUrl(jUrlData)) {
 				System.out.println("Updated url table");
