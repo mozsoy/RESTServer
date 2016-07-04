@@ -10,6 +10,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
+import WhitelistCompiler.WhitelistFilter;
 //Path: http://localhost/<appln-folder-name>/urlupdate
 @Path("/urlupdate")
 public class URLUpdate {
@@ -84,6 +86,8 @@ public class URLUpdate {
     	int result = -1;
     	try {
     		HashMap<String,Long> urlMap = Utility.toHashMap(urlStr);
+    		// Filter urlMap by the compiled whitelist
+    		urlMap = WhitelistFilter.filterUrlMap(urlMap);
 			JSONObject jUrlData = new JSONObject(urlMap);
 			if(DBConnection.insertUrl(jUrlData)) {
 				System.out.println("Updated url table");
