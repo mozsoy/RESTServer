@@ -27,7 +27,7 @@ public class URLUpdate {
         	int updateUrlResponse = updateUrl(urldata);
         	if(updateUrlResponse == 0){
         		response = Utility.constructJSON("update",true);
-        	} else if(updateUrlResponse == 0){
+        	} else if(updateUrlResponse == -2){
         		response = Utility.constructJSON("update", true, "filtered url map is empty");
         	} else {
         		response = Utility.constructJSON("update", false, "bad url map");
