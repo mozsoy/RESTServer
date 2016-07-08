@@ -13,7 +13,7 @@ public class WhitelistFilter {
     private static boolean top1000flag = true;
     /*Keep this flag off. 
      * Alexa uses a zip file. 
-     * Heroku filesystem is read-only and doesn not let downloading zip file.
+     * Heroku filesystem is read-only and does not allow downloading zip file.
      * */  
     private static boolean alexa500flag = false;
     
