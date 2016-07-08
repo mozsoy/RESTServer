@@ -11,11 +11,15 @@ public class WhitelistFilter {
 
 	 // Whitelist providers flags
     private static boolean top1000flag = true;
-    /*Keep this flag off. 
+    /* Keep alexa500flag off. 
      * Alexa uses a zip file. 
      * Heroku filesystem is read-only and does not allow downloading zip file.
+     * 
+     * Instead get the unzipped csv file using alexa1mflag from:
+     * https://github.com/mozsoy/RESTServer/blob/master/alexaWhitelist.csv
      * */  
     private static boolean alexa500flag = false;
+    private static boolean alexa1mflag	 = true;
     
     // Return url as a string without the http and www parts
     public static String getDomainName(String url) throws URISyntaxException {
@@ -57,6 +61,19 @@ public class WhitelistFilter {
                 }
             }
     		
+    	}
+    	itr = urlSet.iterator(); // Reset iterator
+    	if(alexa1mflag) {
+    		Alexa500Compiler alexa500Compiler = new Alexa500Compiler();
+            ArrayList<String> alexawhitelist
+                    = alexa500Compiler.downloadAlexa1mWhitelist();            
+            while (itr.hasNext())
+            {
+                String s = itr.next();
+                if (alexawhitelist.contains(s)) {
+                    urlMap.remove(s);
+                }
+            }   		  		
     	}
     	return urlMap;
     }

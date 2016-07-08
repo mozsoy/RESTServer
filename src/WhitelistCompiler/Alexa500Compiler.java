@@ -2,8 +2,6 @@ package WhitelistCompiler;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
@@ -11,10 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Date;
 import java.util.Calendar;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -62,8 +57,38 @@ public class Alexa500Compiler {
                 String[] fieldsInThisLine = line.split(",");
                 whitelist.add(fieldsInThisLine[1]);
             }
+            scanner.close();
         } catch (FileNotFoundException ex) { // File not found
             System.out.println("error: Alexa csv file not found at the specified path");
+        }
+        return whitelist;
+    }
+    
+    /**
+     * Use this method to download Alexa 1m Whitelist as a csv file from 
+     * https://github.com/mozsoy/RESTServer/blob/master/alexaWhitelist.csv
+     * 
+     * @return ArrayList<String> whitelist
+     */
+    public ArrayList<String> downloadAlexa1mWhitelist() {
+        // The security report to be returned by this method
+        ArrayList<String> whitelist = new ArrayList<>();
+        try {
+            URL url = new URL("https://github.com/mozsoy/RESTServer/blob/master/alexaWhitelist.csv");
+            URLConnection conn = url.openConnection();
+            InputStream in = conn.getInputStream();
+            Scanner scanner = new Scanner(in);
+
+            while (scanner.hasNextLine()) { //read next line in the txt file
+                String line = scanner.nextLine();
+                String[] fieldsInThisLine = line.split(",");
+                whitelist.add(fieldsInThisLine[1]);
+            }
+            scanner.close();
+        } catch (MalformedURLException ex) {
+            System.out.println("TOP1000 Whitelist: Malformed URL Error");
+        } catch (IOException ex) {
+            System.out.println("TOP1000 Whitelist: Txt File not found error");
         }
         return whitelist;
     }
