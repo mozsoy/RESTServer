@@ -19,7 +19,7 @@ public class WhitelistFilter {
      * https://github.com/mozsoy/RESTServer/blob/master/alexaWhitelist.csv
      * */  
     private static boolean alexa500flag = false;
-    private static boolean alexa1mflag	 = true;
+    private static boolean alexa1mflag	 = false;
     
     // Return url as a string without the http and www parts
     public static String getDomainName(String url) throws URISyntaxException {
