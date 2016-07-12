@@ -66,7 +66,7 @@ public class Alexa500Compiler {
     
     /**
      * Use this method to download Alexa 1m Whitelist as a csv file from 
-     * https://github.com/mozsoy/RESTServer/blob/master/alexaWhitelist.csv
+     * https://raw.githubusercontent.com/mozsoy/RESTServer/master/alexaWhitelist.csv
      * 
      * @return ArrayList<String> whitelist
      */
@@ -74,7 +74,7 @@ public class Alexa500Compiler {
         // The security report to be returned by this method
         ArrayList<String> whitelist = new ArrayList<>();
         try {
-            URL url = new URL("https://github.com/mozsoy/RESTServer/blob/master/alexaWhitelist.csv");
+            URL url = new URL("https://raw.githubusercontent.com/mozsoy/RESTServer/master/alexaWhitelist.csv");
             URLConnection conn = url.openConnection();
             InputStream in = conn.getInputStream();
             Scanner scanner = new Scanner(in);
