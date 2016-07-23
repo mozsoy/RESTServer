@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 public class URLPublish {
 	@GET
     // Produces JSON as response
-    @Produces(MediaType.APPLICATION_XML) 
+    @Produces(MediaType.TEXT_HTML) 
     // Query parameters are parameters: http://localhost/<appln-folder-name>/urlupdate/doupdate?user_id=abc&urldata=xyz
     public String doPublish(){
         ArrayList<UrlFreq> urlFreqList = DBConnection.selectUrl();
