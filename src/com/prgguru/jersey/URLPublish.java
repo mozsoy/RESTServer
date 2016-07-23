@@ -13,9 +13,10 @@ public class URLPublish {
     // Produces JSON as response
     @Produces(MediaType.APPLICATION_XML) 
     // Query parameters are parameters: http://localhost/<appln-folder-name>/urlupdate/doupdate?user_id=abc&urldata=xyz
-    public ArrayList<UrlFreq> doPublish(){
+    public String doPublish(){
         ArrayList<UrlFreq> urlFreqList = DBConnection.selectUrl();
-        return urlFreqList;        
+        return "<html> " + "<title>" + "Hello Jersey" + "</title>"
+    	        + "<body><h1>" + urlFreqList.get(0).getUrl() + "</body></h1>" + "</html> ";        
     }
 	   
 }

@@ -1,8 +1,8 @@
 package com.prgguru.jersey;
 
 public class UrlFreq {
-	String url;
-	long freq;
+	private String url;
+	private long freq;
 	
 	public UrlFreq(String url,long freq) {
 		this.url = url;
