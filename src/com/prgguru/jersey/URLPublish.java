@@ -15,8 +15,8 @@ public class URLPublish {
     // Query parameters are parameters: http://localhost/<appln-folder-name>/urlupdate/doupdate?user_id=abc&urldata=xyz
     public String doPublish(){
         ArrayList<UrlFreq> urlFreqList = DBConnection.selectUrl();
-        return "<html> " + "<title>" + "Hello Jersey" + "</title>"
-    	        + "<body><h1>" + urlFreqList.get(0).getUrl() + "</body></h1>" + "</html> ";        
+        return "<html> " + "<title>" + "Hello Jersey" + "</title>" +
+        		"<body>" + urlFreqList.get(0).getUrl() + "</body>" + "</html> ";        
     }
 	   
 }
