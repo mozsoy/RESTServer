@@ -25,6 +25,9 @@ public class WhitelistFilter {
     public static String getDomainName(String url) throws URISyntaxException {
         URI uri = new URI(url);
         String domain = uri.getHost();
+        if(domain == null) {
+        	return url;
+        }        
         return domain.startsWith("www.") ? domain.substring(4) : domain;
     }
     

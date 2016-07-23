@@ -2,9 +2,12 @@ package com.prgguru.jersey;
  
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 // import org.json.JSONObject;
 import java.util.Iterator;
 
@@ -162,4 +165,30 @@ public class DBConnection {
     	}
     	return insertStatus;
     }
+    
+    public static ArrayList<UrlFreq> selectUrl() {
+    	ArrayList<UrlFreq>  urlFreqList = new ArrayList<>();
+    	Connection dbConn = null;
+    	try {
+            dbConn = DBConnection.createConnection();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    	PreparedStatement ps;
+		try {
+			ps = dbConn
+					.prepareStatement("SELECT url,freq FROM urls ORDER BY freq DESC");
+			ResultSet rs = ps.executeQuery();
+	    	while(rs.next()) {	    		
+	    		String url = rs.getString("url");
+	    		long freq = rs.getLong("freq");
+	    		urlFreqList.add(new UrlFreq(url,freq));
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   	
+    	return urlFreqList;
+    } 
 }
