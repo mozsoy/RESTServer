@@ -38,6 +38,13 @@ public class WhitelistFilter {
             while (itr.hasNext())
             {
                 String s = itr.next();
+                // Remove the 'www' part from the url
+                try {
+					s = getDomainName(s);
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 if (top1000whitelist.contains(s)) {
                     urlMap.remove(s);
                 }
