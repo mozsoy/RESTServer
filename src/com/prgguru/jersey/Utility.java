@@ -1,5 +1,7 @@
 package com.prgguru.jersey;
  
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import org.codehaus.jettison.json.JSONException;
@@ -85,8 +87,19 @@ public class Utility {
     	mapStr = mapStr.substring(1,mapStr.length()-1);
     	for(String keyValue : mapStr.split(" *, *")) {
     	   String[] pairs = keyValue.split(" *= *");
-    	   map.put(pairs[0], Long.valueOf(pairs[1]));
+    	   map.put(pairs[0].replaceAll("www.",""), Long.valueOf(pairs[1]));
     	}
     	return map;
     } 
+    
+    // Return url as a string without the http and www parts
+    public static String getDomainName(String url) throws URISyntaxException {
+        URI uri = new URI(url);
+        String domain = uri.getHost();
+        if(domain == null) {
+        	return url.replaceAll("www.","");
+        }        
+        return domain.replaceAll("www.","");
+        //return domain.startsWith("www.") ? domain.substring(4) : domain;
+    }
 }

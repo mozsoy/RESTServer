@@ -20,18 +20,7 @@ public class WhitelistFilter {
      * */  
     private static boolean alexa500flag = false;
     private static boolean alexa1mflag	 = false;
-    
-    // Return url as a string without the http and www parts
-    public static String getDomainName(String url) throws URISyntaxException {
-        URI uri = new URI(url);
-        String domain = uri.getHost();
-        if(domain == null) {
-        	return url.replaceAll("www.","");
-        }        
-        return domain.replaceAll("www.","");
-        //return domain.startsWith("www.") ? domain.substring(4) : domain;
-    }
-    
+     
     public static HashMap<String,Long> filterUrlMap(HashMap<String,Long> urlMap) {
     	Set<String> urlSet = urlMap.keySet();
     	Iterator<String> itr = urlSet.iterator();
@@ -42,16 +31,6 @@ public class WhitelistFilter {
             while (itr.hasNext())
             {
                 String s = itr.next();
-                long f = urlMap.get(s);
-                // Remove the 'www' part from the url
-                try {
-                	urlMap.remove(s);
-					s = getDomainName(s);
-					urlMap.put(s,f);
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
                 if (top1000whitelist.contains(s)) {
                     urlMap.remove(s);
                 }
