@@ -42,9 +42,12 @@ public class WhitelistFilter {
             while (itr.hasNext())
             {
                 String s = itr.next();
+                long f = urlMap.get(s);
                 // Remove the 'www' part from the url
                 try {
+                	urlMap.remove(s);
 					s = getDomainName(s);
+					urlMap.put(s,f);
 				} catch (URISyntaxException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
