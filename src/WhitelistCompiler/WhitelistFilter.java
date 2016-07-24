@@ -26,9 +26,9 @@ public class WhitelistFilter {
         URI uri = new URI(url);
         String domain = uri.getHost();
         if(domain == null) {
-        	return url.replace("www.","");
+        	return url.replaceAll("www.","");
         }        
-        return domain.replace("www.","");
+        return domain.replaceAll("www.","");
         //return domain.startsWith("www.") ? domain.substring(4) : domain;
     }
     
