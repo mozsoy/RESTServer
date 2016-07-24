@@ -26,7 +26,7 @@ public class WhitelistFilter {
         URI uri = new URI(url);
         String domain = uri.getHost();
         if(domain == null) {
-        	return url;
+        	return url.startsWith("www.") ? url.substring(4) : url;
         }        
         return domain.startsWith("www.") ? domain.substring(4) : domain;
     }
