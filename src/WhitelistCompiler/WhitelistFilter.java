@@ -26,9 +26,10 @@ public class WhitelistFilter {
         URI uri = new URI(url);
         String domain = uri.getHost();
         if(domain == null) {
-        	return url.startsWith("www.") ? url.substring(4) : url;
+        	return url.replace("www.","");
         }        
-        return domain.startsWith("www.") ? domain.substring(4) : domain;
+        return domain.replace("www.","");
+        //return domain.startsWith("www.") ? domain.substring(4) : domain;
     }
     
     public static HashMap<String,Long> filterUrlMap(HashMap<String,Long> urlMap) {
