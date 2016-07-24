@@ -87,7 +87,15 @@ public class Utility {
     	mapStr = mapStr.substring(1,mapStr.length()-1);
     	for(String keyValue : mapStr.split(" *, *")) {
     	   String[] pairs = keyValue.split(" *= *");
-    	   map.put(pairs[0].replaceAll("www.",""), Long.valueOf(pairs[1]));
+    	   try {
+			map.put(getDomainName(pairs[0]), Long.valueOf(pairs[1]));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	}
     	return map;
     } 
