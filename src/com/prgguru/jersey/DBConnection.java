@@ -178,7 +178,7 @@ public class DBConnection {
     	PreparedStatement ps;
 		try {
 			ps = dbConn
-					.prepareStatement("SELECT url,freq FROM urls ORDER BY freq DESC");
+					.prepareStatement("SELECT TOP 1000 url,freq FROM urls ORDER BY freq DESC");
 			ResultSet rs = ps.executeQuery();
 	    	while(rs.next()) {	    		
 	    		String url = rs.getString("url");
