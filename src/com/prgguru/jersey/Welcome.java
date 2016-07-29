@@ -12,7 +12,7 @@ public class Welcome {
 	
 	  // Welcome page html
 	  private static final String welcomeHtml = "<html><title>Automated AdBlocking</title>" +
-			  "<body background=\"http://www.seat61.com/images/template/background-qm2.jpg\">" +
+			  "<body background=\"background.jpg\">" +
 			  "<h1>This work is a part of the Master's Thesis of Metehan Ozsoy.</h1>"+
 			  "<p><a href=\"http://adlist.herokuapp.com/urlpublish\">Url List</a></p>"+
 			  "</body></html>";		  
