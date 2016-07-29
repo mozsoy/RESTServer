@@ -7,23 +7,24 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 // Welcome Page 
-@Path("/welcome")
+@Path("/")
 public class Welcome {
 	 // This method is called if TEXT_PLAIN is request
-	  @GET
+	 /* @GET
 	  @Produces(MediaType.TEXT_PLAIN)
 	  public String sayPlainTextHello() {
 		  String welcomeMessage = System.getenv("JDBC_DATABASE_URL");
 	    return welcomeMessage;
 	  }
-
+*/
+	/*
 	  // This method is called if XML is request
 	  @GET
 	  @Produces(MediaType.TEXT_XML)
 	  public String sayXMLHello() {
 	    return "<?xml version=\"1.0\"?>" + "<hello> Hello Jersey" + "</hello>";
 	  }
-
+*/
 	  // This method is called if HTML is request
 	  @GET
 	  @Produces(MediaType.TEXT_HTML)
