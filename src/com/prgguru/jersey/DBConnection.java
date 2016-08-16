@@ -144,7 +144,7 @@ public class DBConnection {
     	    try {
     	    	Statement stmt = dbConn.createStatement();
     	    	String query = 
-    	    			"INSERT into urls(url,freq,date)"
+    	    			"INSERT into urls(url,freq,timestamp)"
     	    					+ " values('" + url + "','" + freq + "',NOW())"
     	    					+ " ON CONFLICT (url,timestamp) DO UPDATE SET freq=urls.freq +" + freq;
     	    	//System.out.println(query);
