@@ -39,22 +39,22 @@ public class URLPublish {
 	 * @return String
 	 */
 	public String prepareUrlPublishHtml() {
-		String urlPublishHtml = "<table style=\"width:100%\">" + getTableTag("URL","FREQUENCY");
+		String urlPublishHtml = "<table style=\"width:100%\">" + getTableTag("URL","FREQUENCY","TIMESTAMP");
 		for(UrlFreq urlFreq:urlFreqList) {
-			urlPublishHtml += this.getTableTag(urlFreq.getUrl(), String.valueOf(urlFreq.getFreq()));
+			urlPublishHtml += this.getTableTag(urlFreq.getUrl(), String.valueOf(urlFreq.getFreq()),urlFreq.getTimestamp());
 		}
 		return urlPublishHtml;
 	}
 	
 	public String prepareUrlPublishHtmlThresholded() {
-		String urlPublishHtml = "<table style=\"width:100%\">" + getTableTag("URL","FREQUENCY");
+		String urlPublishHtml = "<table style=\"width:100%\">" + getTableTag("URL","FREQUENCY","TIMESTAMP");
 		for(UrlFreq urlFreq:urlFreqListThresholded) {
-			urlPublishHtml += this.getTableTag(urlFreq.getUrl(), String.valueOf(urlFreq.getFreq()));
+			urlPublishHtml += this.getTableTag(urlFreq.getUrl(), String.valueOf(urlFreq.getFreq()),urlFreq.getTimestamp());
 		}
 		return urlPublishHtml;
 	}
 	
-	public String getTableTag(String s1, String s2) {
-		return "<tr><th>" + s1 + "</th><th>" + s2 + "</th></tr>";
+	public String getTableTag(String s1, String s2, String s3) {
+		return "<tr><th>" + s1 + "</th><th>" + s2 + "</th><th>" + s3 + "</th></tr>";
 	}
 }
