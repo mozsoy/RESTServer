@@ -31,7 +31,12 @@ public class WhitelistFilter {
             while (itr.hasNext())
             {
                 String s = itr.next();
-                if (top1000whitelist.contains(s)) {
+                if (top1000whitelist.contains(s) 
+                		|| ((s.contains("facebook") 
+                		|| s.contains("google") 
+                		|| s.contains("amazon") 
+                		|| s.contains("twitter"))
+                		&& !s.contains("ad"))) {
                     urlMap.remove(s);
                 }
             }
