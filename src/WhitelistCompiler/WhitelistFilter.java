@@ -69,7 +69,7 @@ public class WhitelistFilter {
             }   		  		
     	}
     	/**
-   	    * For giant domaoins Google, Facebook, Amazon, Twitter 
+   	    * For giant domains Google, Facebook, Amazon, Twitter 
    	    * whitelist everything except there is 'ad' in the url.
         */	
     	itr = urlSet.iterator(); // Reset iterator
@@ -77,12 +77,11 @@ public class WhitelistFilter {
             while (itr.hasNext())
             {
                 String s = itr.next();
-                String sLowerCase = s.toLowerCase();
-                if ((sLowerCase.contains("facebook") 
-                		|| sLowerCase.contains("google") 
-                		|| sLowerCase.contains("amazon") 
-                		|| sLowerCase.contains("twitter"))
-                		&& !sLowerCase.contains("ad")) {
+                if ((s.contains("facebook") 
+                		|| s.contains("google") 
+                		|| s.contains("amazon") 
+                		|| s.contains("twitter"))
+                		&& !s.contains("ad")) {
                     urlMap.remove(s);
                 }
             }
