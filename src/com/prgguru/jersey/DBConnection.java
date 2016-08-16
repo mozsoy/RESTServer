@@ -177,7 +177,7 @@ public class DBConnection {
     	PreparedStatement ps;
 		try {
 			ps = dbConn
-					.prepareStatement("SELECT url,freq  FROM urls ORDER BY freq DESC LIMIT 1000");
+					.prepareStatement("SELECT url,freq,timestamp  FROM urls ORDER BY freq DESC LIMIT 1000");
 			ResultSet rs = ps.executeQuery();
 	    	while(rs.next()) {	    		
 	    		String url = rs.getString("url");
@@ -203,7 +203,7 @@ public class DBConnection {
     	PreparedStatement ps;
 		try {
 			ps = dbConn
-					.prepareStatement("SELECT url,freq  FROM urls WHERE freq>50 ORDER BY freq DESC");
+					.prepareStatement("SELECT url,freq,timestamp  FROM urls WHERE freq>50 ORDER BY freq DESC");
 			ResultSet rs = ps.executeQuery();
 	    	while(rs.next()) {	    		
 	    		String url = rs.getString("url");
