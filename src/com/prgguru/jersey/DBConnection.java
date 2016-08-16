@@ -182,7 +182,8 @@ public class DBConnection {
 	    	while(rs.next()) {	    		
 	    		String url = rs.getString("url");
 	    		long freq = rs.getLong("freq");
-	    		urlFreqList.add(new UrlFreq(url,freq));
+	    		String timestamp = rs.getString("timestamp");
+	    		urlFreqList.add(new UrlFreq(url,freq,timestamp));
 	    	}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -208,7 +209,8 @@ public class DBConnection {
 	    	while(rs.next()) {	    		
 	    		String url = rs.getString("url");
 	    		long freq = rs.getLong("freq");
-	    		urlFreqList.add(new UrlFreq(url,freq));
+	    		String timestamp = rs.getString("timestamp");
+	    		urlFreqList.add(new UrlFreq(url,freq,timestamp));
 	    	}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
