@@ -32,7 +32,7 @@ public class URLPublish {
     // Query parameters are parameters: http://localhost/<appln-folder-name>/urlupdate/doupdate?user_id=abc&urldata=xyz
     public String doPublishByThreshold(){
         urlFreqListThresholded = DBConnection.selectUrlByThreshold(freqThreshold);
-        return this.prepareUrlPublishHtml();        
+        return this.prepareUrlPublishHtmlThresholded();        
     }
 	/**
 	 * Prepares an html script that publishes the url-freq as a table 
@@ -40,7 +40,7 @@ public class URLPublish {
 	 */
 	public String prepareUrlPublishHtml() {
 		String urlPublishHtml = "<table style=\"width:100%\">" + getTableTag("URL","FREQUENCY");
-		for(UrlFreq urlFreq:urlFreqListThresholded) {
+		for(UrlFreq urlFreq:urlFreqList) {
 			urlPublishHtml += this.getTableTag(urlFreq.getUrl(), String.valueOf(urlFreq.getFreq()));
 		}
 		return urlPublishHtml;
