@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.ArrayList;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class WhitelistFilter {
 
 	 // Whitelist providers flags
     private static boolean top1000flag = true;
+    // Whitelist giant domains if there is no 'ad' in the url
+    private static boolean giantDomainFlag = true;
     /* Keep alexa500flag off. 
      * Alexa uses a zip file. 
      * Heroku filesystem is read-only and does not allow downloading zip file.
@@ -67,6 +67,11 @@ public class WhitelistFilter {
                     urlMap.remove(s);
                 }
             }   		  		
+    	}
+    	itr = urlSet.iterator(); // Reset iterator
+    	if(giantDomainFlag) {
+    		GiantDomainCompiler giantDomainCompiler = new GiantDomainCompiler();
+    		giantDomainCompiler.filterGiantDomains(urlMap);
     	}
     	return urlMap;
     }

@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 // import org.json.JSONObject;
 import java.util.Iterator;
 
@@ -147,7 +146,7 @@ public class DBConnection {
     	    	String query = 
     	    			"INSERT into urls(url,freq,date)"
     	    					+ " values('" + url + "','" + freq + "',NOW())"
-    	    					+ " ON CONFLICT (url) DO UPDATe SET freq=urls.freq +" + freq;
+    	    					+ " ON CONFLICT (url,timestamp) DO UPDATE SET freq=urls.freq +" + freq;
     	    	//System.out.println(query);
     	    	int records = stmt.executeUpdate(query);
     	    	//System.out.println(records);
