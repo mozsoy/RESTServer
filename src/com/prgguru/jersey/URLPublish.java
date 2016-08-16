@@ -40,7 +40,7 @@ public class URLPublish {
 	 */
 	public String prepareUrlPublishHtml() {
 		String urlPublishHtml = "<table style=\"width:100%\">" + getTableTag("URL","FREQUENCY");
-		for(UrlFreq urlFreq:urlFreqList) {
+		for(UrlFreq urlFreq:urlFreqListThresholded) {
 			urlPublishHtml += this.getTableTag(urlFreq.getUrl(), String.valueOf(urlFreq.getFreq()));
 		}
 		return urlPublishHtml;
