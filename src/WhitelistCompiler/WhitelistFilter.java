@@ -10,7 +10,7 @@ public class WhitelistFilter {
 	 // Whitelist providers flags
     private static boolean top1000flag = true;
     // Whitelist giant domains if there is no 'ad' in the url
-    private static boolean giantDomainFlag = true;
+    private static boolean giantDomainFlag = false;
     /* Keep alexa500flag off. 
      * Alexa uses a zip file. 
      * Heroku filesystem is read-only and does not allow downloading zip file.
