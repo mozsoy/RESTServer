@@ -190,4 +190,31 @@ public class DBConnection {
 		}   	
     	return urlFreqList;
     } 
+    
+    public static ArrayList<UrlFreq> selectUrlByThreshold(int freqThreshold) {
+    	ArrayList<UrlFreq>  urlFreqList = new ArrayList<>();
+    	Connection dbConn = null;
+    	try {
+            dbConn = DBConnection.createConnection();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    	PreparedStatement ps;
+		try {
+			ps = dbConn
+					.prepareStatement("SELECT url,freq  FROM urls  HAVING freq>50 ORDER BY freq DESC");
+			ResultSet rs = ps.executeQuery();
+	    	while(rs.next()) {	    		
+	    		String url = rs.getString("url");
+	    		long freq = rs.getLong("freq");
+	    		urlFreqList.add(new UrlFreq(url,freq));
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   	
+    	return urlFreqList;
+    }
+    
 }

@@ -15,6 +15,7 @@ public class Welcome {
 			  "<body background=\"/useraccount/src/com/prgguru/jersey/background.jpg\">" +
 			  "<h1>This work is a part of the Master's Thesis of Metehan Ozsoy.</h1>"+
 			  "<p><a href=\"http://adlist.herokuapp.com/urlpublish\">Url List</a></p>"+
+			  "<p><a href=\"http://adlist.herokuapp.com/urlpublish/thresholded\">Url List By Frequency Threshold</a></p>"+
 			  "</body></html>";		  
 	  @GET
 	  @Produces(MediaType.TEXT_HTML)
