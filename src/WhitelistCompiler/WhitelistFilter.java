@@ -31,12 +31,7 @@ public class WhitelistFilter {
             while (itr.hasNext())
             {
                 String s = itr.next();
-                if (top1000whitelist.contains(s) 
-                		|| ((s.contains("facebook") 
-                		|| s.contains("google") 
-                		|| s.contains("amazon") 
-                		|| s.contains("twitter"))
-                		&& !s.contains("ad"))) {
+                if (top1000whitelist.contains(s)) {
                     urlMap.remove(s);
                 }
             }
@@ -77,19 +72,8 @@ public class WhitelistFilter {
    	    * For giant domains Google, Facebook, Amazon, Twitter 
    	    * whitelist everything except there is 'ad' in the url.
         */	
-    	itr = urlSet.iterator(); // Reset iterator
     	if(giantDomainFlag) {
-            while (itr.hasNext())
-            {
-                String s = itr.next();
-                if ((s.contains("facebook") 
-                		|| s.contains("google") 
-                		|| s.contains("amazon") 
-                		|| s.contains("twitter"))
-                		&& !s.contains("ad")) {
-                    urlMap.remove(s);
-                }
-            }
+
     	}
     	return urlMap;
     }
