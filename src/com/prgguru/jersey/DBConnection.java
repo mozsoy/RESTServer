@@ -92,7 +92,7 @@ public class DBConnection {
                 e.printStackTrace();
             }
             Statement stmt = dbConn.createStatement();
-            String query = "INSERT into users(uid) values('" + uid + "')";
+            String query = "INSERT into users(uid,registration_date) values('" + uid + "',NOW())";
             //System.out.println(query);
             int records = stmt.executeUpdate(query);
             //System.out.println(records);
@@ -219,4 +219,26 @@ public class DBConnection {
     	return urlFreqList;
     }
     
+    // Get user count
+    public static int getUserCount() {
+    	Connection dbConn = null;
+    	int nUser = 0;
+    	try {
+            dbConn = DBConnection.createConnection();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    	PreparedStatement ps;
+		try {
+			ps = dbConn
+					.prepareStatement("SELECT count(uid) as nUser FROM users;");
+			ResultSet rs = ps.executeQuery();
+			nUser = rs.getInt("nUser");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   	
+    	return nUser;    	
+    }
 }

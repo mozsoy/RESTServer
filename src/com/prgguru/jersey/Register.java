@@ -22,7 +22,7 @@ public class Register {
         boolean isAppName = (name.equals(Constants.app_name));
         boolean isKey = (key.equals(Constants.app_key));
         if(isAppName && isKey){
-        	String uid = "sudebaby";
+        	String uid = "user_" + DBConnection.getUserCount();
         	registerUser(uid);
             response = Utility.constructJSON("register", uid);
         }else if(!isAppName){
